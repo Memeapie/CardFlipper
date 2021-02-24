@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">CardFlipper</string>
+    <string name="app_name">Card Flipper</string>
+    <string name="tab_text_1">Home</string>
+    <string name="tab_text_2">Tutorial</string>
+    <string name="tab_text_3">Play!</string>
 </resources>
