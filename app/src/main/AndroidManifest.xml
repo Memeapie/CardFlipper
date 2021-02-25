@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CardFlipper">
+        <activity android:name=".Main.Game"></activity>
         <activity
             android:name=".Main.ActivityBar"
             android:label="@string/app_name"

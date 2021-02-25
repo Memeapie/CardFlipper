@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.sam.cardflipper.Fragments.Game;
+import com.sam.cardflipper.Fragments.GameSettings;
 import com.sam.cardflipper.Fragments.Home;
 import com.sam.cardflipper.Fragments.Tutorial;
 import com.sam.cardflipper.R;
@@ -30,7 +30,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return new Tutorial();
             case 2:
-                return new Game();
+                return new GameSettings();
             default:
                 return new Home();
         }

@@ -9,8 +9,11 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sam.cardflipper.R;
+import com.sam.cardflipper.Services.Impl.GameControllerImpl;
 
 public class ActivityBar extends AppCompatActivity {
+
+    public static GameControllerImpl gameController = new GameControllerImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
