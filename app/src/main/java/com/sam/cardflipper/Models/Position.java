@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode()
 public class Position {
 
-    int x;
-    int y;
+    Integer x;
+    Integer y;
 
 }

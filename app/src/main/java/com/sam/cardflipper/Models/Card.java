@@ -16,5 +16,11 @@ public class Card {
     String cardName;
     Boolean isCardFlipped;
     Position position;
+    Integer buttonID;
 
+    public Card(String cardName, Boolean isCardFlipped, Position position) {
+        this.cardName = cardName;
+        this.isCardFlipped = isCardFlipped;
+        this.position = position;
+    }
 }
