@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.AlphaAnimation;
+import android.widget.ImageView;
 
 import com.sam.cardflipper.R;
 
@@ -16,6 +18,13 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        final ImageView image = findViewById(R.id.splashImage);
+
+        AlphaAnimation animationOpen = new AlphaAnimation(0.0f, 1.0f);
+        animationOpen.setDuration(1500);
+        animationOpen.setStartOffset(0);
+        animationOpen.setFillAfter(true);
+        image.startAnimation(animationOpen);
 
         TimerTask task = new TimerTask() {
             @Override
@@ -25,6 +34,6 @@ public class SplashScreen extends AppCompatActivity {
         };
 
         Timer opening = new Timer();
-        opening.schedule(task, 2000);
+        opening.schedule(task, 2500);
     }
 }
