@@ -16,6 +16,32 @@ public class GameControllerImpl implements GameController {
     private Map<String, Integer> cardList = new ConcurrentHashMap<>();
 
     @Override
+    public List<Integer> createButtonReferences() {
+        List<Integer> response = new ArrayList<>();
+        response.add(R.id.button11);
+        response.add(R.id.button12);
+        response.add(R.id.button13);
+        response.add(R.id.button14);
+        response.add(R.id.button21);
+        response.add(R.id.button22);
+        response.add(R.id.button23);
+        response.add(R.id.button24);
+        response.add(R.id.button31);
+        response.add(R.id.button32);
+        response.add(R.id.button33);
+        response.add(R.id.button34);
+        response.add(R.id.button41);
+        response.add(R.id.button42);
+        response.add(R.id.button43);
+        response.add(R.id.button44);
+        response.add(R.id.button51);
+        response.add(R.id.button52);
+        response.add(R.id.button53);
+        response.add(R.id.button54);
+        return response;
+    }
+
+    @Override
     public Integer getCardImage(String cardName) {
         if (cardList.size() == 0){
             Map<String, Integer> response = new ConcurrentHashMap<>();

@@ -2,6 +2,7 @@ package com.sam.cardflipper.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -15,19 +16,24 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.sam.cardflipper.Main.ActivityBar.gameController;
 
 public class Game extends AppCompatActivity {
 
-    final Integer cardCount = 20;
+    private final Integer cardCount = 20;
+    private Card flippedCard = null;
+    private Boolean canFlipCard = true;
+    private Integer pairsFound = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        List<Integer> ids = createButtonReferences();
+        List<Integer> ids = gameController.createButtonReferences();
         List<Card> cards = gameController.createCardList(cardCount);
 
         for (final Card card: cards){
@@ -38,34 +44,59 @@ public class Game extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    button.setImageResource(gameController.getCardImage(card.getCardName()));
+                    if(canFlipCard && !card.getIsCardUsed()) {
+                        button.setImageResource(gameController.getCardImage(card.getCardName()));
+                        if (flippedCard == null) {
+                            flippedCard = card;
+                        } else {
+                            if (flippedCard.getCardName().equals(card.getCardName())) {
+                                flipCard(card, 1);
+                            } else {
+                                flipCard(card, 0);
+                            }
+                        }
+                    }
                 }
             });
         }
     }
 
-    private List<Integer> createButtonReferences() {
-        List<Integer> response = new ArrayList<>();
-        response.add(R.id.button11);
-        response.add(R.id.button12);
-        response.add(R.id.button13);
-        response.add(R.id.button14);
-        response.add(R.id.button21);
-        response.add(R.id.button22);
-        response.add(R.id.button23);
-        response.add(R.id.button24);
-        response.add(R.id.button31);
-        response.add(R.id.button32);
-        response.add(R.id.button33);
-        response.add(R.id.button34);
-        response.add(R.id.button41);
-        response.add(R.id.button42);
-        response.add(R.id.button43);
-        response.add(R.id.button44);
-        response.add(R.id.button51);
-        response.add(R.id.button52);
-        response.add(R.id.button53);
-        response.add(R.id.button54);
-        return response;
+    private void flipCard(final Card card, final Integer score){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                canFlipCard = false;
+            }
+        });
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final ImageButton flippedCardButton = findViewById(flippedCard.getButtonID());
+                        final ImageButton cardButton = findViewById(card.getButtonID());
+                        if (score.equals(0)){
+                            flippedCardButton.setImageResource(R.drawable.cardrear);
+                            cardButton.setImageResource(R.drawable.cardrear);
+                        } else {
+                            flippedCardButton.setImageResource(R.drawable.cardblank);
+                            cardButton.setImageResource(R.drawable.cardblank);
+                            flippedCardButton.setClickable(false);
+                            cardButton.setClickable(false);
+                            flippedCard.setIsCardUsed(true);
+                            card.setIsCardUsed(true);
+                        }
+                        canFlipCard = true;
+                        flippedCard = null;
+                        pairsFound += score;
+                    }
+                });
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(task, 2000);
     }
 }

@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 public class Card {
 
     String cardName;
-    Boolean isCardFlipped;
+    Boolean isCardUsed;
     Position position;
     Integer buttonID;
 
-    public Card(String cardName, Boolean isCardFlipped, Position position) {
+    public Card(String cardName, Boolean isCardUsed, Position position) {
         this.cardName = cardName;
-        this.isCardFlipped = isCardFlipped;
+        this.isCardUsed = isCardUsed;
         this.position = position;
     }
 }

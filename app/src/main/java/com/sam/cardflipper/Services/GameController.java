@@ -9,5 +9,7 @@ public interface GameController {
 
     List<Card> createCardList(int cards);
 
+    List<Integer> createButtonReferences();
+
     Integer getCardImage(String cardName);
 }
