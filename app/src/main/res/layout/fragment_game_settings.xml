@@ -7,12 +7,122 @@
     tools:context=".Fragments.Home">
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/gameSettingsResetDefault"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="@string/start_game"
+        android:layout_marginTop="92dp"
+        android:text="@string/resetToDefault"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSettingsCheckBoxShowCards" />
+
+    <TextView
+        android:id="@+id/gameSettingsTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/timer"
+        app:layout_constraintBottom_toTopOf="@+id/gameSettingsTimerSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/gameSettingsTimerSpinner"
+        android:layout_width="345dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="52dp"
+        android:entries="@array/gameSettingsLives"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSettingsLivesSpinner" />
+
+    <TextView
+        android:id="@+id/gameSettingsLives"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/lifeCount"
+        app:layout_constraintBottom_toTopOf="@+id/gameSettingsLivesSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/gameSettingsLivesSpinner"
+        android:layout_width="345dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="56dp"
+        android:entries="@array/gameSettingsLives"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSettingsCardsSpinner" />
+
+    <TextView
+        android:id="@+id/gameSettingsCards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/cardCount"
+        app:layout_constraintBottom_toTopOf="@+id/gameSettingsCardsSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/gameSettingsCardsSpinner"
+        android:layout_width="345dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="68dp"
+        android:entries="@array/gameSettingsCardCounts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSettingsTitle" />
+
+    <TextView
+        android:id="@+id/gameSettingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/gameSettings"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/gameSettingsCheckBoxAnimateCards"
+        android:layout_width="345dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/gameSettingsAnimate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSettingsTimerSpinner" />
+
+    <Button
+        android:id="@+id/gameSettingsStartButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/startGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSettingsCheckBoxShowCards" />
+
+    <CheckBox
+        android:id="@+id/gameSettingsCheckBoxShowCards"
+        android:layout_width="345dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/gameSettingsShowCards"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSettingsCheckBoxAnimateCards" />
 </androidx.constraintlayout.widget.ConstraintLayout>

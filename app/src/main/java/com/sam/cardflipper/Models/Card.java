@@ -17,10 +17,12 @@ public class Card {
     Boolean isCardUsed;
     Position position;
     Integer buttonID;
+    Boolean isCardFlipped;
 
-    public Card(String cardName, Boolean isCardUsed, Position position) {
+    public Card(String cardName, Position position) {
         this.cardName = cardName;
-        this.isCardUsed = isCardUsed;
+        this.isCardUsed = false;
         this.position = position;
+        this.isCardFlipped = false;
     }
 }

@@ -23,7 +23,6 @@ import static com.sam.cardflipper.Main.ActivityBar.gameController;
 
 public class Game extends AppCompatActivity {
 
-    private final Integer cardCount = 20;
     private Card flippedCard = null;
     private Boolean canFlipCard = true;
     private Integer pairsFound = 0;
@@ -34,20 +33,29 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         List<Integer> ids = gameController.createButtonReferences();
-        List<Card> cards = gameController.createCardList(cardCount);
+        List<Card> cards = gameController.createCardList(gameController.getMyGameSettings().getNumberOfCards());
 
+        // Disable all Buttons
+        for (final Integer buttonId: ids){
+            final ImageButton button = findViewById(buttonId);
+            button.setClickable(false);
+        }
+
+        // Re-Enable Buttons with the right values
         for (final Card card: cards){
             card.setButtonID(ids.get(card.getPosition().getX()*4 + card.getPosition().getY()));
             final ImageButton button = findViewById(card.getButtonID());
             button.setImageResource(R.drawable.cardrear);
+            button.setClickable(true);
 
             button.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    if(canFlipCard && !card.getIsCardUsed()) {
+                    if(canFlipCard && !card.getIsCardUsed() && !card.getIsCardFlipped()) {
                         button.setImageResource(gameController.getCardImage(card.getCardName()));
                         if (flippedCard == null) {
                             flippedCard = card;
+                            flippedCard.setIsCardFlipped(true);
                         } else {
                             if (flippedCard.getCardName().equals(card.getCardName())) {
                                 flipCard(card, 1);
@@ -88,6 +96,8 @@ public class Game extends AppCompatActivity {
                             flippedCard.setIsCardUsed(true);
                             card.setIsCardUsed(true);
                         }
+                        flippedCard.setIsCardFlipped(false);
+                        card.setIsCardFlipped(false);
                         canFlipCard = true;
                         flippedCard = null;
                         pairsFound += score;
@@ -97,6 +107,6 @@ public class Game extends AppCompatActivity {
         };
 
         Timer timer = new Timer();
-        timer.schedule(task, 2000);
+        timer.schedule(task, 1000);
     }
 }

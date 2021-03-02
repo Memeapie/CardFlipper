@@ -1,6 +1,7 @@
 package com.sam.cardflipper.Services.Impl;
 
 import com.sam.cardflipper.Models.Card;
+import com.sam.cardflipper.Models.GameSettings;
 import com.sam.cardflipper.Models.Position;
 import com.sam.cardflipper.R;
 import com.sam.cardflipper.Services.GameController;
@@ -13,7 +14,19 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GameControllerImpl implements GameController {
 
+    private static GameSettings settings;
+
     private Map<String, Integer> cardList = new ConcurrentHashMap<>();
+
+    @Override
+    public void holdMyGameSettings(GameSettings settingsNew){
+        settings = settingsNew;
+    }
+
+    @Override
+    public GameSettings getMyGameSettings(){
+        return settings;
+    }
 
     @Override
     public List<Integer> createButtonReferences() {
@@ -111,13 +124,13 @@ public class GameControllerImpl implements GameController {
         for (String card: cardList){
             // Add First Card
             int random = ThreadLocalRandom.current().nextInt(0, positionList.size());
-            Card cardObject = new Card(card, false, positionList.get(random));
+            Card cardObject = new Card(card, positionList.get(random));
             positionList.remove(random);
             cardObjectList.add(cardObject);
 
             // Add Second Card
             int random2 = ThreadLocalRandom.current().nextInt(0, positionList.size());
-            Card cardObject2 = new Card(card, false, positionList.get(random2));
+            Card cardObject2 = new Card(card, positionList.get(random2));
             positionList.remove(random2);
             cardObjectList.add(cardObject2);
         }

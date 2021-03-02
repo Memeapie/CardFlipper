@@ -1,8 +1,39 @@
 <resources>
-    <string name="app_name">Card Flipper</string>
-    <string name="tab_text_1">Home</string>
-    <string name="tab_text_2">Tutorial</string>
-    <string name="tab_text_3">Play!</string>
-    <string name="start_game">Start!</string>
+    <string name="appName">Card Flipper</string>
+    <string name="tabText1">Home</string>
+    <string name="tabText2">Tutorial</string>
+    <string name="tabText3">Play!</string>
+    <string name="startGame">Start!</string>
     <string name="card">card</string>
+    <string name="cardCount">Number of Cards</string>
+    <string name="lifeCount">Number of Lives</string>
+    <string name="gameSettings">Game Settings</string>
+    <string name="score">Score</string>
+    <string name="timer">Timer</string>
+    <string name="gameSettingsAnimate">Animate Cards</string>
+    <string name="gameSettingsShowCards">Show the Cards before the Game</string>
+    <string name="resetToDefault">Reset to Default Settings</string>
+
+    <string-array name="gameSettingsCardCounts">
+        <item>20</item>
+        <item>16</item>
+        <item>12</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="gameSettingsTimer">
+        <item>10 Seconds</item>
+        <item>20 Seconds</item>
+        <item>40 Seconds</item>
+        <item>2 Minutes</item>
+        <item>Infinite</item>
+    </string-array>
+
+    <string-array name="gameSettingsLives">
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>Infinite</item>
+    </string-array>
+
 </resources>
