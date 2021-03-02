@@ -3,6 +3,7 @@ package com.sam.cardflipper.Main;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +42,7 @@ public class Game extends AppCompatActivity {
             button.setClickable(false);
         }
 
+
         // Re-Enable Buttons with the right values
         for (final Card card: cards){
             card.setButtonID(ids.get(card.getPosition().getX()*4 + card.getPosition().getY()));
@@ -52,7 +54,10 @@ public class Game extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if(canFlipCard && !card.getIsCardUsed() && !card.getIsCardFlipped()) {
-                        button.setImageResource(gameController.getCardImage(card.getCardName()));
+                        final AnimationDrawable testAnim = (AnimationDrawable) getResources().getDrawable(R.drawable.cardflip);
+                        button.setImageDrawable(testAnim);
+                        testAnim.start();
+                        //button.setImageResource(gameController.getCardImage(card.getCardName()));
                         if (flippedCard == null) {
                             flippedCard = card;
                             flippedCard.setIsCardFlipped(true);
