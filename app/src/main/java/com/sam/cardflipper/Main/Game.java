@@ -2,11 +2,15 @@ package com.sam.cardflipper.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -37,11 +41,10 @@ public class Game extends AppCompatActivity {
         List<Card> cards = gameController.createCardList(gameController.getMyGameSettings().getNumberOfCards());
 
         // Disable all Buttons
-        for (final Integer buttonId: ids){
+        for (final Integer buttonId: ids) {
             final ImageButton button = findViewById(buttonId);
             button.setClickable(false);
         }
-
 
         // Re-Enable Buttons with the right values
         for (final Card card: cards){
@@ -50,28 +53,62 @@ public class Game extends AppCompatActivity {
             button.setImageResource(R.drawable.cardrear);
             button.setClickable(true);
 
+            final Game gameContext = this;
+
             button.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     if(canFlipCard && !card.getIsCardUsed() && !card.getIsCardFlipped()) {
-                        final AnimationDrawable testAnim = (AnimationDrawable) getResources().getDrawable(R.drawable.cardflip);
-                        button.setImageDrawable(testAnim);
-                        testAnim.start();
-                        //button.setImageResource(gameController.getCardImage(card.getCardName()));
-                        if (flippedCard == null) {
-                            flippedCard = card;
-                            flippedCard.setIsCardFlipped(true);
+                        canFlipCard = false;
+
+                        if(gameController.getMyGameSettings().getAnimate()){
+                            AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflip);
+                            flipSide.setTarget(button);
+                            flipSide.start();
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    button.setImageResource(gameController.getCardImage(card.getCardName()));
+                                    AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipsecond);
+                                    flipSide.setTarget(button);
+                                    flipSide.start();
+
+                                    TimerTask task = new TimerTask() {
+                                        @Override
+                                        public void run() {
+                                            afterAnimations(card);
+                                        }
+                                    };
+
+                                    Timer timer = new Timer();
+                                    timer.schedule(task, 250);
+                                }
+                            }, 300);
+
+
                         } else {
-                            if (flippedCard.getCardName().equals(card.getCardName())) {
-                                flipCard(card, 1);
-                            } else {
-                                flipCard(card, 0);
-                            }
+                            button.setImageResource(gameController.getCardImage(card.getCardName()));
+                            afterAnimations(card);
                         }
                     }
                 }
             });
         }
+    }
+
+    private void afterAnimations(Card card){
+        if (flippedCard == null) {
+            flippedCard = card;
+            flippedCard.setIsCardFlipped(true);
+        } else {
+            if (flippedCard.getCardName().equals(card.getCardName())) {
+                flipCard(card, 1);
+            } else {
+                flipCard(card, 0);
+            }
+        }
+        canFlipCard = true;
     }
 
     private void flipCard(final Card card, final Integer score){
