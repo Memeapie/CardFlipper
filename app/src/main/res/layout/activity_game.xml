@@ -11,9 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="20dp"
         android:text="@string/lives"
         app:layout_constraintStart_toEndOf="@+id/scoreText"
+        app:layout_constraintTop_toBottomOf="@+id/backfill" />
+
+    <TextView
+        android:id="@+id/timerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/timer"
+        app:layout_constraintStart_toEndOf="@+id/lifeText"
         app:layout_constraintTop_toBottomOf="@+id/backfill" />
 
     <TextView
@@ -258,8 +268,8 @@
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="20dp"
         android:text="@string/score"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backfill" />

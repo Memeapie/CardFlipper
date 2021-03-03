@@ -24,10 +24,17 @@ public class GameSettings {
     }
 
     public void setTimer(String timer) {
-        if (timer.equals("Infinite")){
-            this.timer = -1;
-        } else {
-            this.timer = Integer.valueOf(timer);
+        switch (timer){
+            case "Infinite":
+                this.timer = -1;
+            case "20 Seconds":
+                this.timer = 20;
+            case "40 Seconds":
+                this.timer = 40;
+            case "1 Minute":
+                this.timer = 60;
+            case "2 Minutes":
+                this.timer = 120;
         }
     }
 

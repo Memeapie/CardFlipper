@@ -4,25 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
-import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.sam.cardflipper.Models.Card;
+import com.sam.cardflipper.Models.GameSettings;
 import com.sam.cardflipper.R;
 
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,6 +28,8 @@ public class Game extends AppCompatActivity {
     private Integer pairsFound = 0;
     private Game gameContext;
     private Integer lives = -1;
+    private Integer timer = 0;
+    private Boolean timerSet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +39,30 @@ public class Game extends AppCompatActivity {
         setScore();
         setLives(0);
 
+        final TextView timerText = findViewById(R.id.timerText);
+        timerText.setText("Timer: "+gameController.getMyGameSettings().getTimer());
+
         List<Integer> ids = gameController.createButtonReferences();
         List<Card> cards = gameController.createCardList(gameController.getMyGameSettings().getNumberOfCards());
 
         // Disable all Buttons
-        for (final Integer buttonId: ids) {
+        for (final Integer buttonId : ids) {
             final ImageButton button = findViewById(buttonId);
             button.setClickable(false);
         }
 
         // Re-Enable Buttons with the right values
-        for (final Card card: cards){
+        for (final Card card : cards) {
 
-            card.setButtonID(ids.get(card.getPosition().getX()*4 + card.getPosition().getY()));
+            card.setButtonID(ids.get(card.getPosition().getX() * 4 + card.getPosition().getY()));
             final ImageButton button = findViewById(card.getButtonID());
             button.setClickable(true);
 
             // Show Cards Before Game Starts
-            if (gameController.getMyGameSettings().getShowsCards()){
+            if (gameController.getMyGameSettings().getShowsCards()) {
                 button.setImageResource(gameController.getCardImage(card.getCardName()));
                 canFlipCard = false;
-                if(gameController.getMyGameSettings().getAnimate()) {
+                if (gameController.getMyGameSettings().getAnimate()) {
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -120,13 +118,19 @@ public class Game extends AppCompatActivity {
 
             this.gameContext = this;
 
-            button.setOnClickListener(new View.OnClickListener(){
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(canFlipCard && !card.getIsCardUsed() && !card.getIsCardFlipped()) {
+                    if (canFlipCard && !card.getIsCardUsed() && !card.getIsCardFlipped()) {
                         canFlipCard = false;
 
-                        if(gameController.getMyGameSettings().getAnimate()){
+                        // Initiate Timer on First Card Pick
+                        if (!timerSet){
+                            timerSet = true;
+                            setTimer();
+                        }
+
+                        if (gameController.getMyGameSettings().getAnimate()) {
                             AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflip);
                             flipSide.setTarget(button);
                             flipSide.start();
@@ -295,6 +299,27 @@ public class Game extends AppCompatActivity {
         } else {
             lives -= modifyLives;
             lifeText.setText("Lives: " + lives.toString());
+        }
+    }
+
+    private void setTimer() {
+        final TextView timerText = findViewById(R.id.timerText);
+        if (gameController.getMyGameSettings().getTimer() == -1){
+            timerText.setText("Timer: Infinite");
+        } else {
+            timer = gameController.getMyGameSettings().getTimer();
+            final Handler timerHandler = new Handler();
+            final Runnable timerRunnable = new Runnable() {
+
+                @Override
+                public void run() {
+                    timer -= 1;
+                    timerText.setText("Timer: "+timer);
+
+                    timerHandler.postDelayed(this, 1000);
+                }
+            };
+            timerRunnable.run();
         }
     }
 }
