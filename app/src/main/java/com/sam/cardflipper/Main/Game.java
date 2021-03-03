@@ -14,6 +14,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.sam.cardflipper.Models.Card;
 import com.sam.cardflipper.R;
@@ -33,11 +34,15 @@ public class Game extends AppCompatActivity {
     private Boolean canFlipCard = true;
     private Integer pairsFound = 0;
     private Game gameContext;
+    private Integer lives = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        setScore();
+        setLives(0);
 
         List<Integer> ids = gameController.createButtonReferences();
         List<Card> cards = gameController.createCardList(gameController.getMyGameSettings().getNumberOfCards());
@@ -188,6 +193,7 @@ public class Game extends AppCompatActivity {
                         final ImageButton flippedCardButton = findViewById(flippedCard.getButtonID());
                         final ImageButton cardButton = findViewById(card.getButtonID());
                         if (score.equals(0)){
+                            setLives(1);
                             if(gameController.getMyGameSettings().getAnimate()) {
                                 AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipback);
                                 flipSide.setTarget(flippedCardButton);
@@ -255,6 +261,7 @@ public class Game extends AppCompatActivity {
                             card.setIsCardUsed(true);
                             pairsFound += score;
                             afterPairFlippedToRear(flippedCard, card);
+                            setScore();
                         }
                     }
                 });
@@ -262,7 +269,7 @@ public class Game extends AppCompatActivity {
         };
 
         Timer timer = new Timer();
-        timer.schedule(task, 250);
+        timer.schedule(task, 500);
     }
 
     private void afterPairFlippedToRear(Card flippedCard, Card card){
@@ -270,5 +277,24 @@ public class Game extends AppCompatActivity {
         card.setIsCardFlipped(false);
         this.canFlipCard = true;
         this.flippedCard = null;
+    }
+
+    private void setScore(){
+        final TextView scoreText = findViewById(R.id.scoreText);
+        scoreText.setText("Score: " + pairsFound);
+    }
+
+    private void setLives(Integer modifyLives){
+        if((lives == -1) && (gameController.getMyGameSettings().getNumberOfLives() != -1)){
+            lives = gameController.getMyGameSettings().getNumberOfLives();
+        }
+
+        final TextView lifeText = findViewById(R.id.lifeText);
+        if (gameController.getMyGameSettings().getNumberOfLives() == -1){
+            lifeText.setText("Lives: Infinite");
+        } else {
+            lives -= modifyLives;
+            lifeText.setText("Lives: " + lives.toString());
+        }
     }
 }

@@ -9,6 +9,7 @@
     <string name="lifeCount">Number of Lives</string>
     <string name="gameSettings">Game Settings</string>
     <string name="score">Score</string>
+    <string name="lives">Lives: </string>
     <string name="timer">Timer</string>
     <string name="gameSettingsAnimate">Animate Cards</string>
     <string name="gameSettingsShowCards">Show the Cards before the Game</string>
