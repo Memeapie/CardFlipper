@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -164,6 +165,15 @@ public class Game extends AppCompatActivity {
                 }
             });
         }
+
+        // End Game Button
+        Button endGameButton = findViewById(R.id.endGameButton);
+        endGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                triggerGameOver(true);
+            }
+        });
     }
 
     private void afterAnimationCardShowFront(Card card){
@@ -266,6 +276,10 @@ public class Game extends AppCompatActivity {
                             pairsFound += score;
                             afterPairFlippedToRear(flippedCard, card);
                             setScore();
+
+                            if (pairsFound == gameController.getMyGameSettings().getNumberOfCards()/2){
+                                triggerGameOver(true);
+                            }
                         }
                     }
                 });
@@ -299,6 +313,10 @@ public class Game extends AppCompatActivity {
         } else {
             lives -= modifyLives;
             lifeText.setText("Lives: " + lives.toString());
+
+            if (lives == 0){
+                triggerGameOver(false);
+            }
         }
     }
 
@@ -316,10 +334,20 @@ public class Game extends AppCompatActivity {
                     timer -= 1;
                     timerText.setText("Timer: "+timer);
 
-                    timerHandler.postDelayed(this, 1000);
+                    if (timer == 0){
+                        triggerGameOver(false);
+                    } else {
+                        timerHandler.postDelayed(this, 1000);
+                    }
                 }
             };
             timerRunnable.run();
         }
     }
+
+    private void triggerGameOver(Boolean didThePlayerWin) {
+        System.out.println(didThePlayerWin);
+    }
+
+
 }

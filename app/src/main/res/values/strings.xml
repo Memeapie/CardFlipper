@@ -11,6 +11,7 @@
     <string name="score">Score</string>
     <string name="lives">Lives</string>
     <string name="timer">Timer</string>
+    <string name="endGame">End Game</string>
     <string name="gameSettingsAnimate">Animate Cards</string>
     <string name="gameSettingsShowCards">Show the Cards before the Game</string>
     <string name="resetToDefault">Reset to Default Settings</string>
