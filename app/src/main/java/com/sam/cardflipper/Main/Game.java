@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,6 +32,7 @@ public class Game extends AppCompatActivity {
     private Card flippedCard = null;
     private Boolean canFlipCard = true;
     private Integer pairsFound = 0;
+    private Game gameContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,70 @@ public class Game extends AppCompatActivity {
 
         // Re-Enable Buttons with the right values
         for (final Card card: cards){
+
             card.setButtonID(ids.get(card.getPosition().getX()*4 + card.getPosition().getY()));
             final ImageButton button = findViewById(card.getButtonID());
-            button.setImageResource(R.drawable.cardrear);
             button.setClickable(true);
 
-            final Game gameContext = this;
+            // Show Cards Before Game Starts
+            if (gameController.getMyGameSettings().getShowsCards()){
+                button.setImageResource(gameController.getCardImage(card.getCardName()));
+                canFlipCard = false;
+                if(gameController.getMyGameSettings().getAnimate()) {
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipback);
+                            flipSide.setTarget(button);
+                            flipSide.start();
+
+                            TimerTask task = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            button.setImageResource(R.drawable.cardrear);
+                                            AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipbacksecond);
+                                            flipSide.setTarget(button);
+                                            flipSide.start();
+
+                                            TimerTask task = new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    canFlipCard = true;
+                                                }
+                                            };
+
+                                            Timer timer = new Timer();
+                                            timer.schedule(task, 250);
+                                        }
+                                    });
+                                }
+                            };
+
+                            Timer timer = new Timer();
+                            timer.schedule(task, 250);
+                        }
+                    }, 2000);
+                } else {
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            button.setImageResource(R.drawable.cardrear);
+                        }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 2000);
+                }
+            } else {
+                button.setImageResource(R.drawable.cardrear);
+            }
+
+            this.gameContext = this;
 
             button.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -77,7 +137,7 @@ public class Game extends AppCompatActivity {
                                     TimerTask task = new TimerTask() {
                                         @Override
                                         public void run() {
-                                            afterAnimations(card);
+                                            afterAnimationCardShowFront(card);
                                         }
                                     };
 
@@ -89,7 +149,7 @@ public class Game extends AppCompatActivity {
 
                         } else {
                             button.setImageResource(gameController.getCardImage(card.getCardName()));
-                            afterAnimations(card);
+                            afterAnimationCardShowFront(card);
                         }
                     }
                 }
@@ -97,21 +157,21 @@ public class Game extends AppCompatActivity {
         }
     }
 
-    private void afterAnimations(Card card){
+    private void afterAnimationCardShowFront(Card card){
         if (flippedCard == null) {
             flippedCard = card;
             flippedCard.setIsCardFlipped(true);
+            canFlipCard = true;
         } else {
             if (flippedCard.getCardName().equals(card.getCardName())) {
-                flipCard(card, 1);
+                flipCardAndScore(card, 1);
             } else {
-                flipCard(card, 0);
+                flipCardAndScore(card, 0);
             }
         }
-        canFlipCard = true;
     }
 
-    private void flipCard(final Card card, final Integer score){
+    private void flipCardAndScore(final Card card, final Integer score){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -128,27 +188,87 @@ public class Game extends AppCompatActivity {
                         final ImageButton flippedCardButton = findViewById(flippedCard.getButtonID());
                         final ImageButton cardButton = findViewById(card.getButtonID());
                         if (score.equals(0)){
-                            flippedCardButton.setImageResource(R.drawable.cardrear);
-                            cardButton.setImageResource(R.drawable.cardrear);
+                            if(gameController.getMyGameSettings().getAnimate()) {
+                                AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipback);
+                                flipSide.setTarget(flippedCardButton);
+                                flipSide.start();
+
+                                AnimatorSet flipSideCard2 = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipback);
+                                flipSideCard2.setTarget(cardButton);
+                                flipSideCard2.start();
+
+                                TimerTask task = new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                flippedCardButton.setImageResource(R.drawable.cardrear);
+                                                AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipbacksecond);
+                                                flipSide.setTarget(flippedCardButton);
+                                                flipSide.start();
+
+                                                cardButton.setImageResource(R.drawable.cardrear);
+                                                AnimatorSet flipSideCard2 = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipbacksecond);
+                                                flipSideCard2.setTarget(cardButton);
+                                                flipSideCard2.start();
+
+                                                TimerTask task = new TimerTask() {
+                                                    @Override
+                                                    public void run() {
+                                                        afterPairFlippedToRear(flippedCard, card);
+                                                    }
+                                                };
+
+                                                Timer timer = new Timer();
+                                                timer.schedule(task, 250);
+                                            }
+                                        });
+                                    }
+                                };
+
+                                Timer timer = new Timer();
+                                timer.schedule(task, 250);
+                            } else {
+                                flippedCardButton.setImageResource(R.drawable.cardrear);
+                                cardButton.setImageResource(R.drawable.cardrear);
+                                afterPairFlippedToRear(flippedCard, card);
+                            }
+
                         } else {
-                            flippedCardButton.setImageResource(R.drawable.cardblank);
-                            cardButton.setImageResource(R.drawable.cardblank);
+
+                            if (gameController.getMyGameSettings().getAnimate()) {
+                                AlphaAnimation animationFade = new AlphaAnimation(1.0f, 0.0f);
+                                animationFade.setDuration(250);
+                                animationFade.setStartOffset(0);
+                                animationFade.setFillAfter(true);
+                                flippedCardButton.startAnimation(animationFade);
+                                cardButton.startAnimation(animationFade);
+                            } else {
+                                flippedCardButton.setImageResource(R.drawable.cardblank);
+                                cardButton.setImageResource(R.drawable.cardblank);
+                            }
+
                             flippedCardButton.setClickable(false);
                             cardButton.setClickable(false);
                             flippedCard.setIsCardUsed(true);
                             card.setIsCardUsed(true);
+                            pairsFound += score;
+                            afterPairFlippedToRear(flippedCard, card);
                         }
-                        flippedCard.setIsCardFlipped(false);
-                        card.setIsCardFlipped(false);
-                        canFlipCard = true;
-                        flippedCard = null;
-                        pairsFound += score;
                     }
                 });
             }
         };
 
         Timer timer = new Timer();
-        timer.schedule(task, 1000);
+        timer.schedule(task, 250);
+    }
+
+    private void afterPairFlippedToRear(Card flippedCard, Card card){
+        flippedCard.setIsCardFlipped(false);
+        card.setIsCardFlipped(false);
+        this.canFlipCard = true;
+        this.flippedCard = null;
     }
 }

@@ -22,9 +22,9 @@
     </string-array>
 
     <string-array name="gameSettingsTimer">
-        <item>10 Seconds</item>
         <item>20 Seconds</item>
         <item>40 Seconds</item>
+        <item>1 Minute</item>
         <item>2 Minutes</item>
         <item>Infinite</item>
     </string-array>
