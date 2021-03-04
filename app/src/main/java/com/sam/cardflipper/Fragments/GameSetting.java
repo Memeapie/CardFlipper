@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import androidx.fragment.app.Fragment;
 
 import com.sam.cardflipper.Main.Game;
+import com.sam.cardflipper.Models.GameCompleted;
 import com.sam.cardflipper.Models.GameSettings;
 import com.sam.cardflipper.R;
 
@@ -55,6 +56,7 @@ public class GameSetting extends Fragment {
                 gameSettings.setShowsCards(showCards.isChecked());
 
                 gameController.holdMyGameSettings(gameSettings);
+                gameController.setGameCompleted(new GameCompleted());
 
                 Intent intent = new Intent(v.getContext(), Game.class);
                 startActivity(intent);

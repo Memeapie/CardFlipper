@@ -15,6 +15,10 @@
     <string name="gameSettingsAnimate">Animate Cards</string>
     <string name="gameSettingsShowCards">Show the Cards before the Game</string>
     <string name="resetToDefault">Reset to Default Settings</string>
+    <string name="gameOver">Game Over!</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="finalScore">Final Score</string>
+    <string name="backToMainMenu">Return to Main Menu</string>
 
     <string-array name="gameSettingsCardCounts">
         <item>20</item>

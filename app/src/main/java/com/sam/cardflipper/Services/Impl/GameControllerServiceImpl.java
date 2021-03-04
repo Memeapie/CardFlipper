@@ -1,6 +1,7 @@
 package com.sam.cardflipper.Services.Impl;
 
 import com.sam.cardflipper.Models.Card;
+import com.sam.cardflipper.Models.GameCompleted;
 import com.sam.cardflipper.Models.GameSettings;
 import com.sam.cardflipper.Models.Position;
 import com.sam.cardflipper.R;
@@ -15,8 +16,19 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameControllerServiceImpl implements GameControllerService {
 
     private static GameSettings settings;
+    private static GameCompleted gameCompleted;
 
     private Map<String, Integer> cardList = new ConcurrentHashMap<>();
+
+    @Override
+    public GameCompleted getGameCompleted() {
+        return gameCompleted;
+    }
+
+    @Override
+    public void setGameCompleted(GameCompleted gameCompleted) {
+        GameControllerServiceImpl.gameCompleted = gameCompleted;
+    }
 
     @Override
     public void holdMyGameSettings(GameSettings settingsNew){

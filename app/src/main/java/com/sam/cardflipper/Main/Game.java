@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,8 +14,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.sam.cardflipper.Models.Card;
+import com.sam.cardflipper.Models.GameCompleted;
 import com.sam.cardflipper.Models.GameSettings;
 import com.sam.cardflipper.R;
+import com.sam.cardflipper.Services.Impl.GameControllerServiceImpl;
 import com.sam.cardflipper.Services.Impl.SoundEffectServiceImpl;
 import com.sam.cardflipper.Services.SoundEffectService;
 
@@ -359,6 +362,18 @@ public class Game extends AppCompatActivity {
     }
 
     private void triggerGameOver(Boolean didThePlayerWin) {
-        System.out.println(didThePlayerWin);
+        gameController.setGameCompleted(new GameCompleted(
+                didThePlayerWin,
+                cardsFlipped,
+                pairsFound,
+                !gameController.getMyGameSettings().getTimer().equals(-1),
+                timer,
+                !gameController.getMyGameSettings().getNumberOfLives().equals(-1),
+                lives
+        ));
+
+        Intent intent = new Intent(gameContext, GameOver.class);
+        startActivity(intent);
+
     }
 }
