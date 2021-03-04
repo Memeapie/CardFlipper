@@ -4,7 +4,7 @@ import com.sam.cardflipper.Models.Card;
 import com.sam.cardflipper.Models.GameSettings;
 import com.sam.cardflipper.Models.Position;
 import com.sam.cardflipper.R;
-import com.sam.cardflipper.Services.GameController;
+import com.sam.cardflipper.Services.GameControllerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GameControllerImpl implements GameController {
+public class GameControllerServiceImpl implements GameControllerService {
 
     private static GameSettings settings;
 

@@ -2,18 +2,17 @@ package com.sam.cardflipper.Main;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sam.cardflipper.R;
-import com.sam.cardflipper.Services.Impl.GameControllerImpl;
+import com.sam.cardflipper.Services.Impl.GameControllerServiceImpl;
 
 public class ActivityBar extends AppCompatActivity {
 
-    public static GameControllerImpl gameController = new GameControllerImpl();
+    public static GameControllerServiceImpl gameController = new GameControllerServiceImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

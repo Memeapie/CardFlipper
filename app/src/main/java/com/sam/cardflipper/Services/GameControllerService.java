@@ -6,7 +6,7 @@ import com.sam.cardflipper.Models.GameSettings;
 import java.util.List;
 import java.util.Map;
 
-public interface GameController {
+public interface GameControllerService {
 
     List<Card> createCardList(int cards);
 

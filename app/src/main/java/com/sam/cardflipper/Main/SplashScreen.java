@@ -8,11 +8,15 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
 import com.sam.cardflipper.R;
+import com.sam.cardflipper.Services.Impl.SoundEffectServiceImpl;
+import com.sam.cardflipper.Services.SoundEffectService;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class SplashScreen extends AppCompatActivity {
+
+    private final SoundEffectService soundEffectService = new SoundEffectServiceImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,8 @@ public class SplashScreen extends AppCompatActivity {
         animationOpen.setStartOffset(0);
         animationOpen.setFillAfter(true);
         image.startAnimation(animationOpen);
+
+        soundEffectService.playSoundEffect(this, R.raw.birdintro);
 
         TimerTask task = new TimerTask() {
             @Override

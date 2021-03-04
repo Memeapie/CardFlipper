@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.sam.cardflipper.Models.Card;
 import com.sam.cardflipper.Models.GameSettings;
 import com.sam.cardflipper.R;
+import com.sam.cardflipper.Services.Impl.SoundEffectServiceImpl;
+import com.sam.cardflipper.Services.SoundEffectService;
 
 import java.util.List;
 import java.util.Timer;
@@ -24,6 +26,8 @@ import static com.sam.cardflipper.Main.ActivityBar.gameController;
 
 public class Game extends AppCompatActivity {
 
+    private final SoundEffectService soundEffectService = new SoundEffectServiceImpl();
+
     private Card flippedCard = null;
     private Boolean canFlipCard = true;
     private Integer pairsFound = 0;
@@ -31,6 +35,7 @@ public class Game extends AppCompatActivity {
     private Integer lives = -1;
     private Integer timer = 0;
     private Boolean timerSet = false;
+    private Integer cardsFlipped = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +66,10 @@ public class Game extends AppCompatActivity {
 
             // Show Cards Before Game Starts
             if (gameController.getMyGameSettings().getShowsCards()) {
+
                 button.setImageResource(gameController.getCardImage(card.getCardName()));
                 canFlipCard = false;
+
                 if (gameController.getMyGameSettings().getAnimate()) {
 
                     new Handler().postDelayed(new Runnable() {
@@ -130,6 +137,8 @@ public class Game extends AppCompatActivity {
                             timerSet = true;
                             setTimer();
                         }
+
+                        soundEffectService.playSoundEffect(gameContext, R.raw.cardflip);
 
                         if (gameController.getMyGameSettings().getAnimate()) {
                             AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflip);
@@ -207,6 +216,7 @@ public class Game extends AppCompatActivity {
                         final ImageButton flippedCardButton = findViewById(flippedCard.getButtonID());
                         final ImageButton cardButton = findViewById(card.getButtonID());
                         if (score.equals(0)){
+                            soundEffectService.playSoundEffect(gameContext, R.raw.incorrectcard);
                             setLives(1);
                             if(gameController.getMyGameSettings().getAnimate()) {
                                 AnimatorSet flipSide = (AnimatorSet) AnimatorInflater.loadAnimator(gameContext, R.animator.cardflipback);
@@ -257,6 +267,8 @@ public class Game extends AppCompatActivity {
 
                         } else {
 
+                            soundEffectService.playSoundEffect(gameContext, R.raw.correctcard);
+
                             if (gameController.getMyGameSettings().getAnimate()) {
                                 AlphaAnimation animationFade = new AlphaAnimation(1.0f, 0.0f);
                                 animationFade.setDuration(250);
@@ -274,6 +286,7 @@ public class Game extends AppCompatActivity {
                             flippedCard.setIsCardUsed(true);
                             card.setIsCardUsed(true);
                             pairsFound += score;
+                            cardsFlipped += 1;
                             afterPairFlippedToRear(flippedCard, card);
                             setScore();
 
@@ -348,6 +361,4 @@ public class Game extends AppCompatActivity {
     private void triggerGameOver(Boolean didThePlayerWin) {
         System.out.println(didThePlayerWin);
     }
-
-
 }
