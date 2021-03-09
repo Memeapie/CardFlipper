@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.sam.cardflipper.R;
 
-public class Tutorial extends Fragment {
+public class Leaderboard extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

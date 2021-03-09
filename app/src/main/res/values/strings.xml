@@ -1,7 +1,7 @@
 <resources>
     <string name="appName">Card Flipper</string>
     <string name="tabText1">Home</string>
-    <string name="tabText2">Tutorial</string>
+    <string name="tabText2">Leaderboard</string>
     <string name="tabText3">Play!</string>
     <string name="startGame">Start!</string>
     <string name="card">card</string>

@@ -59,7 +59,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!changingPage) {
-                    swipe(R.animator.swipeleft, 1);
+                    swipe(R.animator.swiperight, 1);
                 }
             }
         });

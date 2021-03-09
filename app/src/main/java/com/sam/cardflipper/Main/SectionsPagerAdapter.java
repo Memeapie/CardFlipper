@@ -10,13 +10,13 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.sam.cardflipper.Fragments.GameSetting;
 import com.sam.cardflipper.Fragments.Home;
-import com.sam.cardflipper.Fragments.Tutorial;
+import com.sam.cardflipper.Fragments.Leaderboard;
 import com.sam.cardflipper.R;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tabText1, R.string.tabText2, R.string.tabText3};
+    private static final int[] TAB_TITLES = new int[]{R.string.tabText1, R.string.tabText3, R.string.tabText2};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -28,9 +28,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 1:
-                return new Tutorial();
-            case 2:
                 return new GameSetting();
+            case 2:
+                return new Leaderboard();
             default:
                 return new Home();
         }
