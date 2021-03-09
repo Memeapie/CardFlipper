@@ -39,11 +39,14 @@ public class Game extends AppCompatActivity {
     private Integer timer = 0;
     private Boolean timerSet = false;
     private Integer cardsFlipped = 0;
+    private Boolean gameCompleted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        this.gameCompleted = false;
 
         setScore();
         setLives(0);
@@ -117,6 +120,7 @@ public class Game extends AppCompatActivity {
                         @Override
                         public void run() {
                             button.setImageResource(R.drawable.cardrear);
+                            canFlipCard = true;
                         }
                     };
 
@@ -350,7 +354,9 @@ public class Game extends AppCompatActivity {
                     timer -= 1;
                     timerText.setText("Timer: "+timer);
 
-                    if (timer == 0){
+                    if (gameCompleted) {
+                        System.out.println("Done");
+                    } else if (timer == 0){
                         triggerGameOver(false);
                     } else {
                         timerHandler.postDelayed(this, 1000);
@@ -362,6 +368,8 @@ public class Game extends AppCompatActivity {
     }
 
     private void triggerGameOver(Boolean didThePlayerWin) {
+        this.gameCompleted = true;
+
         gameController.setGameCompleted(new GameCompleted(
                 didThePlayerWin,
                 cardsFlipped,

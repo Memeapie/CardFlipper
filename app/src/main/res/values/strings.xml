@@ -19,8 +19,21 @@
     <string name="placeholder">Placeholder</string>
     <string name="finalScore">Final Score</string>
     <string name="backToMainMenu">Return to Main Menu</string>
-    <string name="welcome1">Welcome to Card Flipper!</string>
-    <string name="welcomeText1">Welcome to the game! Use the tabbed bar at the top to navigate between home, the leaderboard and the game. Use the arrow keys here to show more information on how to play the game</string>
+    <string name="pageNumberStart">Back to Start</string>
+
+    <string name="welcomeTextTitle1">Welcome to Card Flipper!</string>
+    <string name="welcomeTextTitle2">Setting up a Game!</string>
+    <string name="welcomeTextTitle3">How to Play!</string>
+
+    <string name="welcomeTextBody1">Welcome to the game! Use the tabbed bar at the top to navigate between home, the leaderboard and the game. Use the arrow buttons to show more information on how to play the game</string>
+    <string name="welcomeTextBody2">Using the tabbed bar at the top of the application, navigate to the play section, highlighted here in red</string>
+    <string name="welcomeTextBody3">On this page you can configure different settings for a game, such as the Number of Cards, Number of Lives, and a timer. All of these contribute to getting a higher final score. but the game can be played however you want</string>
+    <string name="welcomeTextBody4">You can also configure if the cards should be shown before hand and if the cards should animate when playing. This can be useful for games with a timer or lives as this can speed up how long the game will take!</string>
+    <string name="welcomeTextBody5">Now you have everything configured, the game can be started. Alternatively, if the settings are not right, you can reset and enter them in again</string>
+    <string name="welcomeTextBody6">Once the game is started, you will be present with some cards facing down. Clicking on the cards will turn them face over</string>
+    <string name="welcomeTextBody7">Matching two cards of the same type will remove them from the board, and increase your score</string>
+    <string name="welcomeTextBody8">Continue matching cards until the entire board is cleared!</string>
+    <string name="welcomeTextBody9">You can end the game at any time with the end game button</string>
 
     <string-array name="gameSettingsCardCounts">
         <item>20</item>
