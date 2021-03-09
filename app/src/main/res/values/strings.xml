@@ -20,6 +20,10 @@
     <string name="finalScore">Final Score</string>
     <string name="backToMainMenu">Return to Main Menu</string>
     <string name="pageNumberStart">Back to Start</string>
+    <string name="leaderboardTitle">Leaderboard</string>
+    <string name="position">Position</string>
+    <string name="name">Name</string>
+    <string name="nameHint">Enter your Name Here</string>
 
     <string name="welcomeTextTitle1">Welcome to Card Flipper!</string>
     <string name="welcomeTextTitle2">Setting up a Game!</string>
