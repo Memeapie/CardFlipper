@@ -6,4 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Home">
 
+    <ImageView
+        android:id="@+id/homeInformationImage"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="@string/appName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homePageTitle"
+        android:src="@drawable/hellothere" />
+
+    <Button
+        android:id="@+id/homeNextButton"
+        android:layout_width="62dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:icon="@android:drawable/ic_media_ff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeInformationImage" />
+
+    <Button
+        android:id="@+id/homePreviousButton"
+        android:layout_width="62dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        app:icon="@android:drawable/ic_media_rew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.023"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeInformationImage" />
+
+    <TextView
+        android:id="@+id/homePageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/welcome1"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="309dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/welcomeText1"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeInformationImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

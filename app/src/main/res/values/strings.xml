@@ -19,6 +19,8 @@
     <string name="placeholder">Placeholder</string>
     <string name="finalScore">Final Score</string>
     <string name="backToMainMenu">Return to Main Menu</string>
+    <string name="welcome1">Welcome to Card Flipper!</string>
+    <string name="welcomeText1">Welcome to the game! Use the tabbed bar at the top to navigate between home, the leaderboard and the game. Use the arrow keys here to show more information on how to play the game</string>
 
     <string-array name="gameSettingsCardCounts">
         <item>20</item>
