@@ -33,7 +33,7 @@ public class Leaderboard extends Fragment {
         final TableLayout table = view.findViewById(R.id.leaderboardTable);
 
         this.scores = scoreBoardService.getScores(getContext()).stream()
-                .sorted(Comparator.comparing(Score::getScore))
+                .sorted(Comparator.comparing(Score::getScore).reversed())
                 .collect(Collectors.toList());
 
         int position = 1;
@@ -54,7 +54,7 @@ public class Leaderboard extends Fragment {
             textViewName.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView textViewScore = new TextView(getContext());
-            textViewScore.setText(score.getScore());
+            textViewScore.setText(String.valueOf(score.getScore()));
             textViewScore.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             textViewScore.setPadding(0, 10, 0, 10);
             textViewScore.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
@@ -66,7 +66,7 @@ public class Leaderboard extends Fragment {
 
             position += 1;
 
-            if (position == 21) {
+            if (position == 16) {
                 break;
             }
         }

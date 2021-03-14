@@ -8,6 +8,6 @@ import lombok.Data;
 public class Score {
 
     private String name;
-    private String score;
+    private Integer score;
 
 }

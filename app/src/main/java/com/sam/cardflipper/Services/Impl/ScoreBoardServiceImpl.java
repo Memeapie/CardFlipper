@@ -29,7 +29,7 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
                     value2 = value1;
                     value1 = "";
                 } else {
-                    Score score = new Score(value2, value1);
+                    Score score = new Score(value2, Integer.valueOf(value1));
                     scores.add(score);
                     value1 = "";
                     value2 = "";
