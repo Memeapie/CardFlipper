@@ -27,14 +27,19 @@ public class GameSettings {
         switch (timer){
             case "Infinite":
                 this.timer = -1;
+                break;
             case "20 Seconds":
                 this.timer = 20;
+                break;
             case "40 Seconds":
                 this.timer = 40;
+                break;
             case "1 Minute":
                 this.timer = 60;
+                break;
             case "2 Minutes":
                 this.timer = 120;
+                break;
         }
     }
 

@@ -1,7 +1,5 @@
 package com.sam.cardflipper.Main;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.content.Intent;
@@ -13,11 +11,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.sam.cardflipper.Models.Card;
 import com.sam.cardflipper.Models.GameCompleted;
-import com.sam.cardflipper.Models.GameSettings;
 import com.sam.cardflipper.R;
-import com.sam.cardflipper.Services.Impl.GameControllerServiceImpl;
 import com.sam.cardflipper.Services.Impl.SoundEffectServiceImpl;
 import com.sam.cardflipper.Services.SoundEffectService;
 
@@ -52,7 +50,11 @@ public class Game extends AppCompatActivity {
         setLives(0);
 
         final TextView timerText = findViewById(R.id.timerText);
-        timerText.setText("Timer: "+gameController.getMyGameSettings().getTimer());
+        if (gameController.getMyGameSettings().getTimer() == -1) {
+            timerText.setText("Timer: Infinite");
+        } else {
+            timerText.setText("Timer: " + gameController.getMyGameSettings().getTimer());
+        }
 
         List<Integer> ids = gameController.createButtonReferences();
         List<Card> cards = gameController.createCardList(gameController.getMyGameSettings().getNumberOfCards());
