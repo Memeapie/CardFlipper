@@ -139,6 +139,7 @@ public class Game extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (canFlipCard && !card.getIsCardUsed() && !card.getIsCardFlipped()) {
+                        cardsFlipped += 1;
                         canFlipCard = false;
 
                         // Initiate Timer on First Card Pick
@@ -295,7 +296,6 @@ public class Game extends AppCompatActivity {
                             flippedCard.setIsCardUsed(true);
                             card.setIsCardUsed(true);
                             pairsFound += score;
-                            cardsFlipped += 1;
                             afterPairFlippedToRear(flippedCard, card);
                             setScore();
 
